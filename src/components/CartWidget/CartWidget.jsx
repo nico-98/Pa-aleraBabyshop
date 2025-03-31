@@ -1,9 +1,12 @@
 import './CartWidget.css'
+import { BsCartFill } from "react-icons/bs";
 
 function CartWidget() {
 
     return(
-        <p className='nav-bar'>🛒(0)</p>
+        <>
+        <BsCartFill />
+        </>
     )
 }
 export default CartWidget;
