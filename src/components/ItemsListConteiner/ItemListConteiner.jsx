@@ -1,56 +1,55 @@
-import React, { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import './ItemListConteiner.css';
 import Item from '../items/Item';
-import Loader from '../loader/Loader';
+import Loader from '../Loader/Loader';
 import { fetchData } from '../../fetchData';
+import ItemDetail from '../ItemDetail/ItemDetail';
 
-function ItemListConteiner() {
-    const [productos, setProductos] = useState([]); 
-    const [loading, setLoading] = useState(true); 
-    const [error, setError] = useState(null); 
+function ItemListContainer({greetings}) {
+    const [loading, setLoading] = useState(true);
+    const [todosLosProductos, setTodosLosProductos] = useState([]);
+    const [productosFiltrados, setProductosFiltrados] = useState(null);
 
     useEffect(() => {
         fetchData()
-            .then((response) => {
-                setProductos(response); 
-                setLoading(false); 
+            .then(response => {
+                setTodosLosProductos(response);
+                setTimeout(() => {
+                    setLoading(false);
+                }, 500);
             })
-            .catch((err) => {
-                setError(err.message); 
-                setLoading(false); 
+            .catch(err => {
+                console.error(err);
+                setLoading(false);
             });
-    }, []); 
-
-
-    if (loading) {
-        return (
-            <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
-                <Loader />
-            </div>
-        );
-    }
-
-
-    if (error) {
-        return <p className="text-center text-danger">Error: {error}</p>;
-    }
-
+    }, []);
 
     return (
-        <div className="container mt-5">
-            <div className="row">
-                {productos.length > 0 ? (
-                    productos.map((el) => (
-                        <div className="col-md-4 mb-4" key={el.id}>
-                            <Item productos={el} />
-                        </div>
-                    ))
-                ) : (
-                    <p className="text-center">No hay productos disponibles.</p>
-                )}
+        <div>
+            <h1>{greetings}</h1>
+            <div className="container-productos">
+                {
+                    loading ? (
+                        <Loader />
+                    ) : (
+                        todosLosProductos.length > 0 ? (
+                            todosLosProductos.map(el => (
+                                <Item key={el.id} productos={el} productosFiltrados={setProductosFiltrados} />
+                            ))
+                        ) : (
+                            <p className="text-center">No hay productos disponibles.</p>
+                        )
+                    )
+                }
+            </div>
+            <div>
+                {
+                    productosFiltrados && 
+                    <ItemDetail productos={productosFiltrados} volverAlInicio={()=>setProductosFiltrados(null)}/>
+                }
             </div>
         </div>
     );
 }
 
-export default ItemListConteiner;
+export default ItemListContainer;

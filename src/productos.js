@@ -1,48 +1,56 @@
 export const productos = [
     {
         id: 1,
-        nombre: "Producto 1",
+        nombre: "Huggies Classic",
         precio: 100,
         stock: 10,
-        categoria: "categoria 1",
-        descripcion: "Descripcion del producto 1",
+        categoria: "Huggies",
+        descripcion: "Mas basico de huggies",
         imagen: "https://picsum.photos/150"
     },
     {
         id: 2,
-        nombre: "Producto 2",
+        nombre: "Huggies Protect Plus",
         precio: 200,
         stock: 20,
-        categoria: "categoria 2",
-        descripcion: "Descripcion del producto 2",
+        categoria: "Huggies",
+        descripcion: "Mas elastizado que Huggies Classic",
         imagen: "https://picsum.photos/150"
     },
     {
         id: 3,
-        nombre: "Producto 3",
+        nombre: "Babysec Ultra",
         precio: 300,
         stock: 30,
-        categoria: "categoria 3",
-        descripcion: "Descripcion del producto 3",
+        categoria: "Babysec",
+        descripcion: "Mas basico de babysec",
         imagen: "https://picsum.photos/150"
     },
     {
         id: 4,
-        nombre: "Producto 4",
+        nombre: "Babysec premium",
         precio: 100,
         stock: 10,
-        categoria: "categoria 4",
-        descripcion: "Descripcion del producto 4",
+        categoria: "Babysec",
+        descripcion: "Mas absorbente que babysec ultra",
         imagen: "https://picsum.photos/150"
     },
     {
         id: 5,
-        nombre: "Producto 5",
+        nombre: "Pampers Deluxe",	
         precio: 100,
         stock: 10,
-        categoria: "categoria 5",
-        descripcion: "Descripcion del producto 5",
+        categoria: "Pampers",
+        descripcion: "Desarrollado para pieles sensibles",
         imagen: "https://picsum.photos/150"
-    }
-
+    },
+    {
+        id: 6,
+        nombre: "Pampers Confort",
+        precio: 100,
+        stock: 10,
+        categoria: "Pampers",
+        descripcion: "Desarrollado para pieles sensibles",
+        imagen: "https://picsum.photos/150"
+    },
 ];

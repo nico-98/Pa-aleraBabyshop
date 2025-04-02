@@ -1,11 +1,17 @@
-import './Item.css';
-function Item({ productos, productosFiltrados }) {
+import './ItemDetail.css';
+import ItemConunt from '../ItemCount/ItemCount';
 
-    
-    const { nombre, precio, stock} = productos;
+import { useState } from 'react';
+
+function ItemDetail({ productos, volverAlInicio }) {
+
+    const [contador, setContador] = useState(1);
+
+    const { nombre, precio, stock, descripcion, categoria} = productos;
 
     function agregarAlCarrito(prod) {  
-        console.log("Vas Agregar",{...prod, cantidad: 1});
+        console.log("Vas Agregar",{...prod, cantidad: contador});
+        setContador(1);
     }
 
     return (
@@ -14,12 +20,15 @@ function Item({ productos, productosFiltrados }) {
                 <div className="card-body"
                     key={productos.id}>
                     <h3 className="card-title" >{nombre}</h3>
+                    <p className="card-text"> <b>{descripcion}</b></p>
                     <p className="card-text" >${precio}</p>
                     <p className="card-text" >Quedan {stock} disponibles</p>
+                    <ItemConunt stock={stock} contador={contador} setContador={setContador}/>
+                    <p className="card-text" >Categoria: {categoria}</p>
                     <img className="card-img-top" src={productos.imagen} alt={nombre} />
                     <div className="d-flex justify-content-center">
                         <button className="btn btn-primary btn-custom m-2 " onClick={()=>agregarAlCarrito (productos)}>Agregar al carrito</button>
-                        <button className="btn btn-primary btn-custom m-2 " onClick={()=> productosFiltrados(productos)}>Ver detalle</button>
+                        <button className="btn btn-primary btn-custom m-2 " onClick={volverAlInicio}>Volver al inicio</button>
                     </div>
                     
                 </div>
@@ -28,4 +37,4 @@ function Item({ productos, productosFiltrados }) {
     );
 }
 
-export default Item;
+export default ItemDetail;
