@@ -1,40 +1,72 @@
 import './ItemDetail.css';
-import ItemConunt from '../ItemCount/ItemCount';
+import ItemCount from '../ItemCount/ItemCount';
 
-import { useState } from 'react';
+import { use, useEffect, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { fetchData } from '../../fetchData';
+import Loader from '../Loader/Loader';
 
-function ItemDetail({ productos, volverAlInicio }) {
+function ItemDetail() {
+
+    const {id} = useParams();
 
     const [contador, setContador] = useState(1);
 
-    const { nombre, precio, stock, descripcion, categoria} = productos;
+    const [producto, setProtucto] =useState(null);
+
+    const [loading, setLoading] =useState (true)
+
 
     function agregarAlCarrito(prod) {  
         console.log("Vas Agregar",{...prod, cantidad: contador});
         setContador(1);
     }
 
-    return (
-        <div className='card h-100'>
-            {productos && (
-                <div className="card-body"
-                    key={productos.id}>
-                    <h3 className="card-title" >{nombre}</h3>
-                    <p className="card-text"> <b>{descripcion}</b></p>
-                    <p className="card-text" >${precio}</p>
-                    <p className="card-text" >Quedan {stock} disponibles</p>
-                    <ItemConunt stock={stock} contador={contador} setContador={setContador}/>
-                    <p className="card-text" >Categoria: {categoria}</p>
-                    <img className="card-img-top" src={productos.imagen} alt={nombre} />
-                    <div className="d-flex justify-content-center">
-                        <button className="btn btn-primary btn-custom m-2 " onClick={()=>agregarAlCarrito (productos)}>Agregar al carrito</button>
-                        <button className="btn btn-primary btn-custom m-2 " onClick={volverAlInicio}>Volver al inicio</button>
-                    </div>
-                    
-                </div>
-            )}
-        </div>
-    );
-}
+    useEffect(() => {
+            fetchData()
+                .then(response => {
+                    const productoAMostrar = response.find (el=> el.id === parseInt (id));
+                    setProtucto(productoAMostrar);
+                    setTimeout (()=>{
+                        setLoading(false)
+                    })
+                    })
+                    .catch (err => console.error(err));
+    },[]);
 
+    return (
+        loading ?
+            <Loader />
+
+            :
+
+            <div className="card p-4">
+                {
+                    producto ?
+                        <>
+                            <h3 className="card-header">{producto.nombre}</h3>
+                            <div className="card-body">
+                                <h5>Precio: <b>${producto.precio}</b></h5>
+                                <h5>Categoria: <b>{producto.categoria.toUpperCase()}</b></h5>
+                                <p><b>{producto.descripcion}</b></p>
+                                <p>Quedan <b>{producto.stock}</b> disponibles</p>
+                                <img className="card-img-top" src={producto.imagen} alt={producto.nombre} />
+
+                                <ItemCount stock={producto.stock} contador={contador} setContador={setContador} />
+
+                                <button className="btn btn-secondary my-2" onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                                <Link to="/">
+                                    <button className="btn btn-secondary my-2">Volver al inicio</button>
+                                </Link>
+                            </div>
+                        </>
+
+                        :
+
+                        <p>Producto no encontrado con el id {id}</p>
+                }
+            </div>
+
+    );
+};
 export default ItemDetail;
