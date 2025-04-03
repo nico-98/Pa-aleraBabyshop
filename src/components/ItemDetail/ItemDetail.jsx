@@ -1,7 +1,6 @@
 import './ItemDetail.css';
 import ItemCount from '../ItemCount/ItemCount';
-
-import { use, useEffect, useState } from 'react';
+import {useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { fetchData } from '../../fetchData';
 import Loader from '../Loader/Loader';
@@ -15,7 +14,6 @@ function ItemDetail() {
     const [producto, setProtucto] =useState(null);
 
     const [loading, setLoading] =useState (true)
-
 
     function agregarAlCarrito(prod) {  
         console.log("Vas Agregar",{...prod, cantidad: contador});

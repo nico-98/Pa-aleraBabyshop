@@ -12,8 +12,15 @@ return (
             <Link to= "/">
             <li>Inicio</li>
             </Link>
-            <li>Productos</li>
-            <li>Contacto</li>
+            <Link to="/categoria/Huggies">
+            <li>Huggies</li>
+            </Link>
+            <Link to="/categoria/Pampers" >
+            <li>Pampers</li>
+            </Link>
+            <Link to="/categoria/Babysec">
+            <li>Babysec</li>
+            </Link>
         </ul>
         <CartWidget />
         </nav>

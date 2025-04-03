@@ -1,14 +1,14 @@
 import './Item.css';
 import { Link } from 'react-router-dom';
-function Item({ productos, productosFiltrados }) {
+function Item({ productos}) {
 
-    
-    const {id, nombre, precio, stock} = productos;
+const {id, nombre, precio, stock} = productos;
 
     function agregarAlCarrito(prod) {  
         console.log("Vas Agregar",{...prod, cantidad: 1});
     }
 
+    console.log(productos)
     return (
         <div className='card h-100'>
             {productos && (

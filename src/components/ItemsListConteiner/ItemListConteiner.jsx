@@ -1,55 +1,59 @@
 import { useEffect, useState } from 'react';
-import './ItemListConteiner.css';
+import './itemListConteiner.css';
 import Item from '../items/Item';
 import Loader from '../Loader/Loader';
 import { fetchData } from '../../fetchData';
-import ItemDetail from '../ItemDetail/ItemDetail';
+import { useParams } from 'react-router';
 
-function ItemListContainer({greetings}) {
-    const [loading, setLoading] = useState(true);
-    const [todosLosProductos, setTodosLosProductos] = useState([]);
-    const [productosFiltrados, setProductosFiltrados] = useState(null);
+function ItemListContainer() {
 
-    useEffect(() => {
-        fetchData()
-            .then(response => {
-                setTodosLosProductos(response);
-                setTimeout(() => {
-                    setLoading(false);
-                }, 500);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, []);
+const [loading, setLoading] = useState(true);
+const [todosLosProductos, setTodosLosProductos] = useState(null);
+
+const { categoria } = useParams();
+
+useEffect(() => {
+    if (!todosLosProductos) {
+    fetchData()
+        .then(response => {
+        setTodosLosProductos(response);
+        setTimeout(() => {
+            setLoading(false);
+        }, 500);
+        })
+        .catch(err => console.error(err));
+    };
+
+}, [categoria]);
 
     return (
+
+        loading ?
+    
+        <Loader />
+    
+        :
+    
         <div>
-            <h1>{greetings}</h1>
             <div className="container-productos">
-                {
-                    loading ? (
-                        <Loader />
-                    ) : (
-                        todosLosProductos.length > 0 ? (
-                            todosLosProductos.map(el => (
-                                <Item key={el.id} productos={el} productosFiltrados={setProductosFiltrados} />
-                            ))
-                        ) : (
-                            <p className="text-center">No hay productos disponibles.</p>
-                        )
-                    )
-                }
-            </div>
-            <div>
-                {
-                    productosFiltrados && 
-                    <ItemDetail productos={productosFiltrados} volverAlInicio={()=>setProductosFiltrados(null)}/>
-                }
+            {
+                categoria ?
+    
+                todosLosProductos.filter(el => el.categoria === categoria).map(el => {
+                    return (
+                    <Item key={el.id} producto={el} />
+                    );
+                })
+    
+                :
+                todosLosProductos.map(el => {
+                    return (
+                    <Item key={el.id} producto={el} />
+                    );
+                })}
             </div>
         </div>
     );
-}
-
-export default ItemListContainer;
+    };
+    
+    export default ItemListContainer;
