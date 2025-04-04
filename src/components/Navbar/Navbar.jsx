@@ -22,7 +22,9 @@ return (
             <li>Babysec</li>
             </Link>
         </ul>
+        <Link to ="/carrito">
         <CartWidget />
+        </Link>
         </nav>
     </header>
     )
