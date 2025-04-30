@@ -1,5 +1,5 @@
 import './ItemListConteiner.css';
-import Item from '../items/Item';
+import Item from '../items/item';
 import Loader from '../Loader/Loader';
 import { useParams } from 'react-router-dom';
 import { useAppContext } from '../../context/context';
