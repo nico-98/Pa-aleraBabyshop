@@ -1,5 +1,5 @@
 import { Button } from 'bootstrap';
-import './Item.css';
+import './item.css';
 import { Link } from 'react-router-dom';
 import { useAppContext } from '../../context/context';
 
