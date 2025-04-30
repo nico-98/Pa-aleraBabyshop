@@ -1,44 +1,27 @@
-import {useEffect, useState } from 'react';
 import './itemListConteiner.css';
 import Item from '../items/Item';
 import Loader from '../Loader/Loader';
-import { fetchData } from '../../fetchData';
 import { useParams } from 'react-router-dom';
+import { useAppContext } from '../../context/context';
 
 function ItemListContainer() {
-    const [loading, setLoading] = useState(true);
-    const [todosLosProductos, setTodosLosProductos] = useState([]);
+    const { productos, loadingProductos } = useAppContext(); 
     const { categoria } = useParams();
 
-    useEffect(() => {
-        fetchData()
-            .then(response => {
-                console.log("Datos obtenidos:", response);
-                setTodosLosProductos(response.filter(el => el && el.id));
-                setTimeout(() => {
-                    setLoading(false);
-                }, 500);
-            })
-            .catch(err => {
-                console.error(err);
-                setLoading(false);
-            });
-    }, [categoria]);
+    const productosFiltrados = categoria
+        ? productos.filter(producto => producto.categoria === categoria)
+        : productos;
 
     return (
-        loading ? (
+        loadingProductos ? (
             <Loader />
         ) : (
             <div>
                 <div className="container-productos">
-                    {todosLosProductos.length > 0 ? (
-                        categoria ? (
-                            todosLosProductos
-                                .filter(el => el.categoria === categoria)
-                                .map(el => <Item key={el.id} producto={el} />)
-                        ) : (
-                            todosLosProductos.map(el => <Item key={el.id} producto={el} />)
-                        )
+                    {productosFiltrados.length > 0 ? (
+                        productosFiltrados.map(producto => (
+                            <Item key={producto.id} producto={producto} />
+                        ))
                     ) : (
                         <p className="text-center">No hay productos disponibles.</p>
                     )}

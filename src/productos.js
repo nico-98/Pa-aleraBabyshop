@@ -52,5 +52,13 @@ export const productos = [
         categoria: "Pampers",
         descripcion: "Desarrollado para pieles sensibles",
         imagen: "https://picsum.photos/150"
+    },    {
+        id: 7,
+        nombre: "Nonisec ultra",
+        precio: 10000,
+        stock: 10,
+        categoria: "Pampers",
+        descripcion: "Desarrollado para pieles sensibles",
+        imagen: "https://picsum.photos/150"
     },
 ];

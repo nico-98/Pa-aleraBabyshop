@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ItemDetail from './components/ItemDetail/ItemDetail';
 import NotFound from './components/NotFound/NotFound';
 import { ContextProvider } from './context/context';
+import Cart from './components/Cart/Cart';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<ItemListConteiner />} />
           <Route path="/categoria/:categoria" element=    {<ItemListConteiner />} />
           <Route path="/detalle/:id" element={<ItemDetail />} />
+          <Route path="/carrito" element={<Cart />} />
           <Route path="*" element={<NotFound />} /> {}
         </Routes>
       </BrowserRouter>

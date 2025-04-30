@@ -40,7 +40,7 @@ function ItemDetail() {
                             <p>Quedan <b>{producto.stock}</b> disponibles</p>
                             <ItemCount stock={producto.stock} contador={contador} setContador={setContador} />
                             <img className="card-img-top" src={producto.imagen} alt={producto.nombre} />
-                            <button className="btn btn-secondary my-2" onClick={() => agregarAlCarrito(producto)}>Agregar al carrito</button>
+                            <button className="btn btn-secondary my-2" onClick={() => agregarAlCarrito(producto, contador)}>Agregar al carrito</button>
                             <Link to="/">
                                 <button className="btn btn-secondary my-2">Volver al inicio</button>
                             </Link>
