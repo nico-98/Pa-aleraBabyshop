@@ -1,4 +1,4 @@
-import './itemListConteiner.css';
+import './ItemListConteiner.css';
 import Item from '../items/Item';
 import Loader from '../Loader/Loader';
 import { useParams } from 'react-router-dom';
