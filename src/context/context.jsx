@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../firebaseConfig";
+import { toast } from "react-toastify";
 
 const AppContext = createContext();
 
@@ -13,7 +14,7 @@ export const ContextProvider = (props) => {
 
 
     function agregarAlCarrito(prod, cantidad) {
-        console.log("vas a agregar", prod);
+        toast.success("Agregaste " + cantidad + " " + prod.nombre + " al carrito",)
         const nuevoProducto = {
             ...prod,
             cantidad,

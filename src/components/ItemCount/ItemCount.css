@@ -1,0 +1,11 @@
+.contador-container {
+    display: flex;
+    width: 10rem;
+    padding: 2rem;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.contador-boton {
+    margin: 0 10px; /* Margen horizontal */
+}

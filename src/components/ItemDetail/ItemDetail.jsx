@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import Loader from '../Loader/Loader';
 import './ItemDetail.css';
-import { fetchData } from '../../fetchData';
 import { useAppContext } from '../../context/context';
 import ItemCount from '../ItemCount/ItemCount';
 
@@ -12,18 +11,16 @@ function ItemDetail() {
     const [loading, setLoading] = useState(true);
     const [contador, setContador] = useState(1);
 
-    const { agregarAlCarrito } = useAppContext();
-
+    const { agregarAlCarrito, productos, loadingProductos } = useAppContext();
 
     useEffect(() => {
-        fetchData()
-            .then(response => {
-                const productoAMostrar = response.find(el => el.id === parseInt(id));
-                setProducto(productoAMostrar);
-                setLoading(false);
-            })
-            .catch(err => console.error(err));
-    }, [id]);
+        if (!loadingProductos && productos.length > 0) {
+            const productoAMostrar = productos.find(el => el.id === Number(id));
+            setProducto(productoAMostrar);
+            setLoading(false);
+        }
+    }, [id, productos, loadingProductos]);
+
 
     return (
         loading ? (
